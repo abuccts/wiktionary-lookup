@@ -47,3 +47,5 @@ The entry of word "read" is at https://en.wiktionary.org/wiki/read, and here is 
  'Swedish': {'Part of Speech': ['Verb']},
  'West Frisian': {'Part of Speech': ['Adjective']}}
 ```
+
+More exmaples can be found at [Example Wiki Page](https://github.com/abuccts/wiktionary-lookup/wiki/Example).
