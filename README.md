@@ -1,6 +1,9 @@
 wiktionary lookup
 =================
 
+[![Build Status](https://travis-ci.org/abuccts/wiktionary-lookup.svg?branch=master)](https://travis-ci.org/abuccts/wiktionary-lookup)
+[![GPLv3 licensed](https://img.shields.io/badge/license-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0-standalone.html)
+
 A Python toolkit which looks up given words in [Wiktionary](https://www.wiktionary.org/) and returns structured Python dict format. Support the following list at present,
 * languages
 * parts of speech
@@ -8,7 +11,7 @@ A Python toolkit which looks up given words in [Wiktionary](https://www.wiktiona
 
 Requirements
 ------------
-Written in pure Python, no dependencies, tested in Python 3 at present.
+Written in pure Python, compatible with Python 2 and 3, no dependencies.
 
 Usage
 -----
