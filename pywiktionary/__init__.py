@@ -3,4 +3,4 @@
 __author__ = "Yifan Xiong"
 __email__ = "abuccts@gmail.com"
 
-from .wiktionary import Wiktionary
+from pywiktionary.wiktionary import Wiktionary

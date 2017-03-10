@@ -1,5 +1,8 @@
 # -*- coding: utf-8  -*-
 
+from __future__ import absolute_import
+from __future__ import unicode_literals
+
 import re
 import json
 try:
@@ -8,7 +11,7 @@ except ImportError:
 	from urllib.parse import urlencode
 	from urllib.request import urlopen
 
-from .phoneme import IPA2CMUBET
+from pywiktionary.phoneme import IPA2CMUBET
 
 POS = ["noun", "verb", "adjective", "adverb", "determiner",
        "article", "preposition", "conjunction", "proper noun",
