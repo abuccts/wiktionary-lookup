@@ -1,5 +1,7 @@
 # -*- coding: utf-8  -*-
 
+from __future__ import unicode_literals
+
 PHONEME_CODES_1 = {
 	"ɑ": "AA",
 	"æ": "AE",

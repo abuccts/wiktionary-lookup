@@ -2,8 +2,11 @@
 
 import re
 import json
-from urllib.parse import urlencode
-from urllib.request import urlopen
+try:
+	from urllib import urlencode, urlopen
+except ImportError:
+	from urllib.parse import urlencode
+	from urllib.request import urlopen
 
 from .phoneme import IPA2CMUBET
 
