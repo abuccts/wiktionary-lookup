@@ -2,6 +2,7 @@
 
 from __future__ import absolute_import
 from __future__ import unicode_literals
+from __future__ import print_function
 
 import re
 import json
@@ -131,10 +132,20 @@ class Wiktionary(object):
 		return self.parse(text)
 
 def json_option(parser):
-	parser.add_argument('--json', action='store_true', help='Output in machine readable json')
+	parser.add_argument(
+		'--json', action='store_true',
+		help='Output in machine readable json. This may contain additional information.')
 
 
 def cli():
+
+	# Make "wikitionary | cat" work with unicode output
+	#   http://stackoverflow.com/questions/2276200/changing-default-encoding-of-python#17628350
+	#   An alternative approach is to use PYTHONIOENCODING
+	import sys
+	import io
+	sys.stdout = io.open(0, 'w', encoding='utf8')
+
 	wiki = Wiktionary()
 	PARSER = argparse.ArgumentParser(description='Fetches information from wikitionary')
 	PARSER.add_argument('word', type=str)
@@ -156,13 +167,13 @@ def cli():
 		language_entries = result.items()
 
 	if args.json:
-		print json.dumps(result, indent=4).encode('utf8')
+		print(json.dumps(result, indent=4))
 	else:
 		for language, language_entry in language_entries:
 			pronunciation = format_pronunciation(language_entry)
 			if pronunciation:
-				print language
-				print indent(pronunciation)
+				print(language)
+				print(indent(pronunciation))
 	#print json.dumps(output, indent=4).encode('utf8')
 
 def indent(s):
