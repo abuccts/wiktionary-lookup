@@ -133,20 +133,62 @@ class Wiktionary(object):
 def json_option(parser):
 	parser.add_argument('--json', action='store_true', help='Output in machine readable json')
 
+
 def cli():
 	wiki = Wiktionary()
 	PARSER = argparse.ArgumentParser(description='Fetches information from wikitionary')
 	PARSER.add_argument('word', type=str)
+	PARSER.add_argument('--language', type=str.title, help='Display entry for this language (default is english). "all" for all.')
+
 	json_option(PARSER)
 	args = PARSER.parse_args()
 
 	result = wiki.lookup(args.word)
 
-	if 'English' in result:
-		output = result['English']
+
+	if args.language == 'All':
+		language_entries = result.items()
+	elif args.language:
+		language_entries = [(args.language, result[args.language])]
+	elif 'English' in result:
+		language_entries = [('English', result['English'])]
 	else:
-		output = result
+		language_entries = result.items()
 
 	if args.json:
 		print json.dumps(result, indent=4).encode('utf8')
-	print json.dumps(output, indent=4).encode('utf8')
+	else:
+		for language, language_entry in language_entries:
+			pronunciation = format_pronunciation(language_entry)
+			if pronunciation:
+				print language
+				print indent(pronunciation)
+	#print json.dumps(output, indent=4).encode('utf8')
+
+def indent(s):
+	return '\n'.join(['    ' + l for l in  s.split('\n')])
+
+def format_pronunciation(entry):
+	if 'Pronunciation' not in entry:
+		return None
+
+	result = []
+
+	for pronunciation in entry['Pronunciation']:
+		if not 'IPA' in pronunciation:
+			continue
+		else:
+			accent = pronunciation.get('Accent', 'Standard')
+			if isinstance(accent, list):
+				accent = ', '.join(accent)
+			result.append(accent)
+			variants, _ = pronunciation['IPA']
+			for variant in variants:
+				result.append('    ' + variant)
+
+	if not result:
+		return None
+
+	return u'\n'.join(result)
+
+
