@@ -12,6 +12,7 @@ except ImportError:
 	from urllib.request import urlopen
 
 from pywiktionary.phoneme import IPA2CMUBET
+import argparse
 
 POS = ["noun", "verb", "adjective", "adverb", "determiner",
        "article", "preposition", "conjunction", "proper noun",
@@ -121,10 +122,32 @@ class Wiktionary(object):
 			if len(item) > 0:
 				result.append(item)
 		return result
-	
+
 	def lookup(self, word):
 		self.param["titles"] = word
 		res = urlopen(self.api, urlencode(self.param).encode()).read()
 		content = json.loads(res.decode("utf-8"))
 		text = list(content["query"]["pages"].values())[0]["revisions"][0]["*"]
 		return self.parse(text)
+
+def json_option(parser):
+	parser.add_argument('--json', action='store_true', help='Output in machine readable json')
+
+def cli():
+	wiki = Wiktionary()
+	PARSER = argparse.ArgumentParser(description='Fetches information from wikitionary')
+	PARSER.add_argument('word', type=str)
+	json_option(PARSER)
+	args = PARSER.parse_args()
+
+	result = wiki.lookup(args.word)
+
+	if 'English' in result:
+		output = result['English']
+	else:
+		output = result
+
+	if args.json:
+		print json.dumps(result, indent=4).encode('utf8')
+		
+	print json.dumps(output, indent=4).encode('utf8')
