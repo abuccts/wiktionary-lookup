@@ -33,11 +33,11 @@ class Wiktionary(object):
 			"h3": re.compile("\n={3}([a-zA-Z0-9 ]+)={3}\n"),
 			"h4": re.compile("\n={4}([a-zA-Z0-9 ]+)={4}\n")
 		}
-	
+
 	def set_lang(self, lang):
 		self.lang = lang
 		self.api = "https://" + self.lang + ".wiktionary.org/w/api.php"
-	
+
 	def parse(self, text):
 		result = {}
 		h2_lst = self.regex["h2"].findall(text)
@@ -49,7 +49,7 @@ class Wiktionary(object):
 				i += 1
 			i += 1
 		return result
-	
+
 	def parse_details(self, text, deepth=3):
 		result = {}
 		details_lst = self.regex["h" + str(deepth)].findall(text)
@@ -79,7 +79,7 @@ class Wiktionary(object):
 #		if len(etymology_result) > 0:
 #			result["Etymology"] = etymology_result
 		return result
-	
+
 	def parse_pronun(self, text):
 		result = []
 		pronun_lst = self.regex["pronun"].findall(text)
@@ -149,5 +149,4 @@ def cli():
 
 	if args.json:
 		print json.dumps(result, indent=4).encode('utf8')
-		
 	print json.dumps(output, indent=4).encode('utf8')
