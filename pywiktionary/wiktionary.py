@@ -138,7 +138,6 @@ def json_option(parser):
 
 
 def cli():
-
 	# Make "wikitionary | cat" work with unicode output
 	#   http://stackoverflow.com/questions/2276200/changing-default-encoding-of-python#17628350
 	#   An alternative approach is to use PYTHONIOENCODING
@@ -147,15 +146,17 @@ def cli():
 	sys.stdout = io.open(0, 'w', encoding='utf8')
 
 	wiki = Wiktionary()
-	PARSER = argparse.ArgumentParser(description='Fetches information from wikitionary')
+	PARSER = argparse.ArgumentParser(description='Fetch information from wikitionary')
 	PARSER.add_argument('word', type=str)
-	PARSER.add_argument('--language', type=str.title, help='Display entry for this language (default is english). "all" for all.')
+	PARSER.add_argument(
+		'--language',
+		type=str.title,
+		help='Display entry for this language (the default is english). Use "all" for all.')
 
 	json_option(PARSER)
 	args = PARSER.parse_args()
 
 	result = wiki.lookup(args.word)
-
 
 	if args.language == 'All':
 		language_entries = result.items()
@@ -174,7 +175,6 @@ def cli():
 			if pronunciation:
 				print(language)
 				print(indent(pronunciation))
-	#print json.dumps(output, indent=4).encode('utf8')
 
 def indent(s):
 	return '\n'.join(['    ' + l for l in  s.split('\n')])
@@ -201,5 +201,3 @@ def format_pronunciation(entry):
 		return None
 
 	return u'\n'.join(result)
-
-

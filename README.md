@@ -55,9 +55,13 @@ More exmaples can be found at [Example Wiki Page](https://github.com/abuccts/wik
 
 # Command-line usage
 
-The binary wiktionary is provided
+An command line executable, wiktionary, is provided when the package is installed with
+`setup.py`.
 
 ```
+# Install with setup
+python setup.py install
+
 # Show human readable information
 wiktionary cat
 
