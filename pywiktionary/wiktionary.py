@@ -200,4 +200,4 @@ def format_pronunciation(entry):
 	if not result:
 		return None
 
-	return u'\n'.join(result)
+	return '\n'.join(result)
