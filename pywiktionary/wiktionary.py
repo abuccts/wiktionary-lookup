@@ -50,13 +50,13 @@ class Wiktionary(object):
 			i += 1
 		return result
 
-	def parse_details(self, text, deepth=3):
+	def parse_details(self, text, depth=3):
 		result = {}
-		details_lst = self.regex["h" + str(deepth)].findall(text)
-		details_split = self.regex["h" + str(deepth)].split(text)
+		details_lst = self.regex["h" + str(depth)].findall(text)
+		details_split = self.regex["h" + str(depth)].split(text)
 		pronun_result = {}
 		pos_result = []
-		etymology_result = details_split[0] if deepth == 4 else ""
+		etymology_result = details_split[0] if depth == 4 else ""
 		i = 0
 		while i < len(details_split):
 			if details_split[i] in details_lst:
@@ -69,7 +69,7 @@ class Wiktionary(object):
 					if name == "etymology":
 						etymology_result = details_split[i + 1]
 					else:
-						result[details_split[i]] = self.parse_details(details_split[i + 1], deepth=4)
+						result[details_split[i]] = self.parse_details(details_split[i + 1], depth=4)
 				i += 1
 			i += 1
 		if len(pronun_result) > 0:
