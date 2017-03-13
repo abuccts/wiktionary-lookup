@@ -3,4 +3,4 @@ __pycache__/
 *$py.class
 .tox
 *.egg-info
-
+.coverage
