@@ -9,7 +9,7 @@ setup(
 	name = "pywiktionary",
 	packages = find_packages(exclude=("tests",)),
 	tests_require = ["unittest2"] if (sys.version_info[:2] == [2, 6]) else [],
-	test_suite = "tests",
+	test_suite = "tests.discover",
 	version = "0.0.1",
 	author = "abuccts",
 	author_email = "abuccts@gmail.com",
