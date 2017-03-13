@@ -2,6 +2,7 @@
 
 from __future__ import absolute_import
 from __future__ import unicode_literals
+from __future__ import print_function
 
 import re
 import json
@@ -12,6 +13,7 @@ except ImportError:
 	from urllib.request import urlopen
 
 from pywiktionary.phoneme import IPA2CMUBET
+import argparse
 
 POS = ["noun", "verb", "adjective", "adverb", "determiner",
        "article", "preposition", "conjunction", "proper noun",
@@ -32,11 +34,11 @@ class Wiktionary(object):
 			"h3": re.compile("\n={3}([a-zA-Z0-9 ]+)={3}\n"),
 			"h4": re.compile("\n={4}([a-zA-Z0-9 ]+)={4}\n")
 		}
-	
+
 	def set_lang(self, lang):
 		self.lang = lang
 		self.api = "https://" + self.lang + ".wiktionary.org/w/api.php"
-	
+
 	def parse(self, text):
 		result = {}
 		h2_lst = self.regex["h2"].findall(text)
@@ -48,14 +50,14 @@ class Wiktionary(object):
 				i += 1
 			i += 1
 		return result
-	
-	def parse_details(self, text, deepth=3):
+
+	def parse_details(self, text, depth=3):
 		result = {}
-		details_lst = self.regex["h" + str(deepth)].findall(text)
-		details_split = self.regex["h" + str(deepth)].split(text)
+		details_lst = self.regex["h" + str(depth)].findall(text)
+		details_split = self.regex["h" + str(depth)].split(text)
 		pronun_result = {}
 		pos_result = []
-		etymology_result = details_split[0] if deepth == 4 else ""
+		etymology_result = details_split[0] if depth == 4 else ""
 		i = 0
 		while i < len(details_split):
 			if details_split[i] in details_lst:
@@ -68,7 +70,7 @@ class Wiktionary(object):
 					if name == "etymology":
 						etymology_result = details_split[i + 1]
 					else:
-						result[details_split[i]] = self.parse_details(details_split[i + 1], deepth=4)
+						result[details_split[i]] = self.parse_details(details_split[i + 1], depth=4)
 				i += 1
 			i += 1
 		if len(pronun_result) > 0:
@@ -78,7 +80,7 @@ class Wiktionary(object):
 #		if len(etymology_result) > 0:
 #			result["Etymology"] = etymology_result
 		return result
-	
+
 	def parse_pronun(self, text):
 		result = []
 		pronun_lst = self.regex["pronun"].findall(text)
@@ -121,10 +123,81 @@ class Wiktionary(object):
 			if len(item) > 0:
 				result.append(item)
 		return result
-	
+
 	def lookup(self, word):
 		self.param["titles"] = word
 		res = urlopen(self.api, urlencode(self.param).encode()).read()
 		content = json.loads(res.decode("utf-8"))
 		text = list(content["query"]["pages"].values())[0]["revisions"][0]["*"]
 		return self.parse(text)
+
+def json_option(parser):
+	parser.add_argument(
+		'--json', action='store_true',
+		help='Output in machine readable json. This may contain additional information.')
+
+
+def cli():
+	# Make "wikitionary | cat" work with unicode output
+	#   http://stackoverflow.com/questions/2276200/changing-default-encoding-of-python#17628350
+	#   An alternative approach is to use PYTHONIOENCODING
+	import sys
+	import io
+	sys.stdout = io.open(0, 'w', encoding='utf8')
+
+	wiki = Wiktionary()
+	PARSER = argparse.ArgumentParser(description='Fetch information from wikitionary')
+	PARSER.add_argument('word', type=str)
+	PARSER.add_argument(
+		'--language',
+		type=str.title,
+		help='Display entry for this language (the default is english). Use "all" for all.')
+
+	json_option(PARSER)
+	args = PARSER.parse_args()
+
+	result = wiki.lookup(args.word)
+
+	if args.language == 'All':
+		language_entries = result.items()
+	elif args.language:
+		language_entries = [(args.language, result[args.language])]
+	elif 'English' in result:
+		language_entries = [('English', result['English'])]
+	else:
+		language_entries = result.items()
+
+	if args.json:
+		print(json.dumps(result, indent=4))
+	else:
+		for language, language_entry in language_entries:
+			pronunciation = format_pronunciation(language_entry)
+			if pronunciation:
+				print(language)
+				print(indent(pronunciation))
+
+def indent(s):
+	return '\n'.join(['    ' + l for l in  s.split('\n')])
+
+def format_pronunciation(entry):
+	if 'Pronunciation' not in entry:
+		return None
+
+	result = []
+
+	for pronunciation in entry['Pronunciation']:
+		if not 'IPA' in pronunciation:
+			continue
+		else:
+			accent = pronunciation.get('Accent', 'Standard')
+			if isinstance(accent, list):
+				accent = ', '.join(accent)
+			result.append(accent)
+			variants, _ = pronunciation['IPA']
+			for variant in variants:
+				result.append('    ' + variant)
+
+	if not result:
+		return None
+
+	return '\n'.join(result)
