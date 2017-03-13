@@ -8,7 +8,7 @@ import sys
 setup(
 	name = "pywiktionary",
 	packages = find_packages(exclude=("tests",)),
-	tests_require = ["unittest2"] if (sys.version_info[:2] == [2, 6]) else [],
+	tests_require = ["six", "unittest2"] if (sys.version_info[:2] == [2, 6]) else ["six"],
 	test_suite = "tests.discover",
 	version = "0.0.1",
 	author = "abuccts",
