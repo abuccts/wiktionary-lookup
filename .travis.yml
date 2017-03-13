@@ -1,4 +1,8 @@
 language: python
+os:
+  - linux
+  - osx
+  - windows
 python:
   - "2.6"
   - "2.7"
@@ -12,6 +16,8 @@ python:
   - "3.7-dev"
   - "nightly"
 install:
-  - pip install six
+  - pip install six coveralls
 script:
-  - python -m unittest
+  - coverage run --source=pywiktionary -m unittest discover -v
+after_success:
+  - coveralls
