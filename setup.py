@@ -1,25 +1,30 @@
-import setuptools
-import os
+#! /usr/bin/env python
+# -*- coding: utf-8  -*-
 
-HERE = os.path.dirname(__file__)
+from __future__ import print_function
+from setuptools import setup, find_packages
+import sys
 
-setuptools.setup(
-    name='pywikitionary',
-    version="0.1.0",
-    author='Abuccts',
-    author_email='abuccts@gmail.com',
-    description='',
-    license='GPLv3',
-    keywords='',
-    url='',
-    packages=['pywiktionary'],
-    long_description='See https://github.com/abuccts/wiktionary-lookup',
-    entry_points={
-        'console_scripts': ['wiktionary=pywiktionary.wiktionary:cli']
-    },
-    classifiers=[
-        "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)"
-    ],
-    test_suite='nose.collector',
-    install_requires=[]
+setup(
+	name = "pywiktionary",
+	packages = find_packages(exclude=("tests",)),
+	tests_require = ["unittest2"] if (sys.version_info[:2] == [2, 6]) else [],
+	test_suite = "tests",
+	version = "0.0.1",
+	author = "abuccts",
+	author_email = "abuccts@gmail.com",
+	url = "https://github.com/abuccts/wiktionary-lookup",
+	description = "lookup words and pronunciations in Wiktionary",
+	keywords = "pywikitionary wiktionary-lookup wiktionary parse pronunciation",
+	license = "GPLv3",
+	entry_points = {
+		"console_scripts": ["wiktionary=pywiktionary.wiktionary:cli"]
+	},
+	classifiers=[
+		"Development Status :: 1 - Planning",
+		"Environment :: Console",
+		"Intended Audience :: Developers",
+		"License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+		"Operating System :: OS Independent"
+	],
 )

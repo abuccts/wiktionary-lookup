@@ -3,7 +3,10 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-import unittest
+try:
+	import unittest2 as unittest
+except ImportError:
+	import unittest
 from six import with_metaclass
 from pywiktionary.phoneme import IPA2CMUBET
 
