@@ -53,21 +53,4 @@ The entry of word "read" is at https://en.wiktionary.org/wiki/read, and here is 
 
 More exmaples can be found at [Example Wiki Page](https://github.com/abuccts/wiktionary-lookup/wiki/Example).
 
-# Command-line usage
-
-An command line executable, wiktionary, is provided when the package is installed with
-`setup.py`.
-
-```
-# Install with setup
-python setup.py install
-
-# Show human readable information
-wiktionary cat
-
-# Output information for all languages
-wiktionary --language all cat
-
-# Output machine readable output - suitable for parsing
-wiktionary --json cat
-```
+For command line interface, please refer to [Command Line Usage Wiki Page](https://github.com/abuccts/wiktionary-lookup/wiki/Command-Line-Usage).
