@@ -33,7 +33,7 @@ class TestPhonemeMeta(type):
 			return test
 		
 		for i, (IPA, CMUBET) in enumerate(TestData):
-			test_IPA2CMUBET_name = "test_IPA2CMUBET_%s" % i
+			test_IPA2CMUBET_name = "test_IPA2CMUBET_%06d" % i
 			dict[test_IPA2CMUBET_name] = gen_test_IPA2CMUBET(IPA, CMUBET)
 		return type.__new__(mcs, name, bases, dict)
 

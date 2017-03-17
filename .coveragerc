@@ -1,0 +1,6 @@
+[run]
+branch = True
+source =
+	pywiktionary
+omit =
+	pywiktionary/cli.py

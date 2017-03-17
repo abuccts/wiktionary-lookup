@@ -140,7 +140,7 @@ class Parser(object):
 		
 		if self.phoneme_only:
 			pronunciations = []
-			for h3 in result[self.lang].keys():
+			for h3 in sorted(result[self.lang].keys()):
 				if h3 == "Pronunciation":
 					pronunciations += result[self.lang][h3]
 				elif "Etymology" in h3:
@@ -158,5 +158,5 @@ class Parser(object):
 					if self.CMUBET:
 						cmubet_lst += pronun["CMUBET"] if isinstance(pronun["CMUBET"][0], list) else [pronun["CMUBET"]]
 			cmubet_lst = [x for l in cmubet_lst for x in l]
-			return {"IPA": ipa_lst, "CMUBET": cmubet_lst} if self.CMUBET else  {"IPA": ipa_lst}
+			return {"IPA": ipa_lst, "CMUBET": cmubet_lst} if self.CMUBET else {"IPA": ipa_lst}
 		return result
