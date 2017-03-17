@@ -27,22 +27,24 @@ def cli():
 	PARSER.add_argument(
 		'--language',
 		type=str.title,
-		help='Display entry for this language (the default is english). Use "all" for all.')
+		help='Display entry for this language (the default is English)')
 
 	json_option(PARSER)
 	args = PARSER.parse_args()
 
-	result = wiki.lookup(args.word)
+	args.language = "English" if args.language is None else args.language
+	result = wiki.lookup(args.word, lang=args.language)
 
-	if args.language == 'All':
-		language_entries = result.items()
-	elif args.language:
-		language_entries = [(args.language, result[args.language])]
-	elif 'English' in result:
-		language_entries = [('English', result['English'])]
-	else:
-		language_entries = result.items()
-
+#	if args.language == 'All':
+#		language_entries = result.items()
+#	elif args.language:
+#		language_entries = [(args.language, result[args.language])]
+#	elif 'English' in result:
+#		language_entries = [('English', result['English'])]
+#	else:
+#		language_entries = result.items()
+	language_entries = [(args.language, result[args.language])]
+	
 	if args.json:
 		print(json.dumps(result, indent=4))
 	else:

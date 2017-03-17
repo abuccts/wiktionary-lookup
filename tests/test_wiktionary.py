@@ -16,10 +16,8 @@ class TestWiktionary(unittest.TestCase):
 	def test_set_lang(self):
 		wikidict = Wiktionary()
 		self.assertEqual(wikidict.lang, "en")
-		self.assertEqual(wikidict.api, "https://en.wiktionary.org/w/api.php")
 		wikidict.set_lang("fr")
 		self.assertEqual(wikidict.lang, "fr")
-		self.assertEqual(wikidict.api, "https://fr.wiktionary.org/w/api.php")
 	
 	def test_parse(self):
 		# TODO
