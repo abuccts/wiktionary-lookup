@@ -33,7 +33,7 @@ class Wiktionary(object):
 			CMUBET = False
 		parser = Parser(lang=lang, CMUBET=CMUBET, phoneme_only=phoneme_only)
 		
-		self.param["titles"] = word
+		self.param["titles"] = word.encode("utf-8")
 		res = urlopen(self.api, urlencode(self.param).encode()).read()
 		content = json.loads(res.decode("utf-8"))
 		try:

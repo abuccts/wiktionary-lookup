@@ -38,7 +38,7 @@ class Parser(object):
 		}
 	
 	def expand_template(self, text):
-		self.param["text"] = text
+		self.param["text"] = text.encode("utf-8")
 		res = urlopen(self.api, urlencode(self.param).encode()).read()
 		content = json.loads(res.decode("utf-8"))
 		html = content["expandtemplates"]["wikitext"]

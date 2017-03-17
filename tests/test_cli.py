@@ -41,12 +41,12 @@ result = """English
         [kʰæʔt̚]
 """
 
-
+@unittest.skip
 class TestCLI(unittest.TestCase):
 	def test_cli(self):
 		self.assertEqual(check_output(["wiktionary", "-h"], universal_newlines=True), usage)
-#		self.assertEqual(check_output(["wiktionary", "cat"]).decode("utf-8").splitlines(), result.splitlines())
-#		self.assertEqual(check_output(["wiktionary", "--language", "English", "cat"]).decode("utf-8").splitlines(), result.splitlines())
+		self.assertEqual(check_output(["wiktionary", "cat"]).decode("utf-8").splitlines(), result.splitlines())
+		self.assertEqual(check_output(["wiktionary", "--language", "English", "cat"]).decode("utf-8").splitlines(), result.splitlines())
 
 if __name__ == "__main__":
 	unittest.main()
