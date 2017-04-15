@@ -3,7 +3,7 @@ wiktionary lookup
 
 [![Build Status](https://travis-ci.org/abuccts/wiktionary-lookup.svg?branch=master)](https://travis-ci.org/abuccts/wiktionary-lookup)
 [![Coverage Status](https://coveralls.io/repos/github/abuccts/wiktionary-lookup/badge.svg?branch=master)](https://coveralls.io/github/abuccts/wiktionary-lookup?branch=master)
-[![GPLv3 licensed](https://img.shields.io/badge/license-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0-standalone.html)
+[![BSD licensed](https://img.shields.io/badge/License-BSD-blue.svg)](LICENSE)
 
 A Python toolkit which looks up given words in [Wiktionary](https://www.wiktionary.org/) and returns structured Python dict format. Support the following list at present,
 * languages

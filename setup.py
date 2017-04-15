@@ -28,10 +28,10 @@ setup(
 		"console_scripts": ["wiktionary=pywiktionary.cli:cli"]
 	},
 	classifiers=[
-		"Development Status :: 1 - Planning",
+		"Development Status :: 2 - Pre-Alpha",
 		"Environment :: Console",
 		"Intended Audience :: Developers",
-		"License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+		"License :: OSI Approved :: BSD License",
 		"Operating System :: OS Independent",
 		"Programming Language :: Python :: 2.6",
 		"Programming Language :: Python :: 2.7",
