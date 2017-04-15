@@ -45,10 +45,10 @@ TestWord = [
 		{'French': {'Part of Speech': ['Noun'], 'Pronunciation': [{'IPA': (['/pɑkʁɛt/'], 'fr')}, {'Audio': ('Fr-pâquerette.ogg', 'audio', 'fr')}]}}
 	),
 	("être", "French", False, False,
-		{'French': {'Part of Speech': ['Verb', 'Noun'], 'Pronunciation': [{'IPA': (['/ɛtʁ/'], 'fr')}, {'Audio': ('Fr-être-fr-ouest.ogg', 'Audio (France, West)', 'fr')}, {'Accent': 'Quebec', 'IPA': (['[aɛ̯tʁ]'], 'fr')}, {'Audio': ('Qc-être.ogg', 'Audio (Quebec, Montreal)', 'fr')}, {'Accent': 'Louisiana', 'IPA': (['[ɛt(ɾ)]'], 'fr')}]}}
+		{'French': {'Part of Speech': ['Verb', 'Noun'], 'Pronunciation': [{'IPA': (['/ɛtʁ/'], 'fr')}, {'Audio': ('Fr-être-fr-ouest.ogg', 'Audio (France, West)', 'fr')}, {'Accent': 'Quebec', 'IPA': (['[aɛ̯t{{x2i'], 'X')}, {'Audio': ('Qc-être.ogg', 'Audio (Quebec, Montreal)', 'fr')}, {'Accent': 'Louisiana', 'IPA': (['[ɛt(ɾə)]'], 'fr')}]}}
 	),
 	("être", "French", False, True,
-		{'IPA': ['/ɛtʁ/', '[aɛ̯tʁ]', '[ɛt(ɾ)]']}
+		{'IPA': ['/ɛtʁ/', '[aɛ̯t{{x2i', '[ɛt(ɾə)]']}
 	),
 	("Wörterbücher", "German", False, False,
 		{'German': {'Part of Speech': ['Noun'], 'Pronunciation': [{'IPA': (['/ˈvœʁtɐˌbyːçɐ/'], 'de')}, {'Audio': ('De-at-Wörterbücher.ogg', 'Audio (Austria)', 'de')}]}}
