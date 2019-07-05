@@ -1,6 +1,8 @@
 wiktionary lookup
 =================
 
+__[Notice] This repository was deprecated, please use [wikt2pron](https://github.com/abuccts/wikt2pron) instead.__
+
 [![Build Status](https://travis-ci.org/abuccts/wiktionary-lookup.svg?branch=master)](https://travis-ci.org/abuccts/wiktionary-lookup)
 [![Coverage Status](https://coveralls.io/repos/github/abuccts/wiktionary-lookup/badge.svg?branch=master)](https://coveralls.io/github/abuccts/wiktionary-lookup?branch=master)
 [![BSD licensed](https://img.shields.io/badge/License-BSD-blue.svg)](LICENSE)
@@ -12,10 +14,12 @@ A Python toolkit which looks up given words in [Wiktionary](https://www.wiktiona
 
 Requirements
 ------------
+
 Written in pure Python, compatible with Python 2.6+ and 3.2+, no dependencies.
 
 Installation
 ------------
+
 ```sh
 # download the latest version
 $ git clone https://github.com/abuccts/wiktionary-lookup.git
@@ -28,6 +32,7 @@ $ python setup.py -q test
 
 Usage
 -----
+
 First, create an instance of `Wiktionary` class:
 ```py
 >>> from pywiktionary import Wiktionary
